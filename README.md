@@ -45,12 +45,6 @@ The project is built using modern web technologies with a focus on scalability, 
 
 ---
 
-## 📂 Project Structure
-
-<img width="5122" height="2672" alt="LMS Project Structure Diagram" src="https://github.com/user-attachments/assets/your-lms-structure-image-id" />
-
----
-
 ## 🔐 Environment Variables
 
 For security reasons, `.env` files are not included in the repository.
