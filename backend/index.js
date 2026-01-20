@@ -1,38 +1,49 @@
-import express from "express"
-import dotenv from "dotenv"
-import connectDb from "./configs/db.js"
-import authRouter from "./routes/authRoute.js"
-import cookieParser from "cookie-parser"
-import cors from "cors"
-import userRouter from "./routes/userRoute.js"
-import courseRouter from "./routes/courseRoute.js"
-import paymentRouter from "./routes/paymentRoute.js"
-import aiRouter from "./routes/aiRoute.js"
-import reviewRouter from "./routes/reviewRoute.js"
-dotenv.config()
+import express from "express";
+import dotenv from "dotenv";
+import connectDb from "./configs/db.js";
+import authRouter from "./routes/authRoute.js";
+import cookieParser from "cookie-parser";
+import cors from "cors";
+import userRouter from "./routes/userRoute.js";
+import courseRouter from "./routes/courseRoute.js";
+import paymentRouter from "./routes/paymentRoute.js";
+import aiRouter from "./routes/aiRoute.js";
+import reviewRouter from "./routes/reviewRoute.js";
 
-let port = process.env.PORT
-let app = express()
-app.use(express.json())
-app.use(cookieParser())
+// Load environment variables
+dotenv.config();
+
+// 🔍 ENV DEBUG (remove later)
+console.log("🔍 ENV CHECK");
+console.log("PORT:", process.env.PORT);
+console.log("MONGODB_URL:", process.env.MONGODB_URL ? "✅ Loaded" : "❌ Missing");
+
+const app = express();
+const port = process.env.PORT || 5000;
+
+// Middlewares
+app.use(express.json());
+app.use(cookieParser());
 app.use(cors({
-    origin:"http://localhost:5173",
-    credentials:true
-}))
-app.use("/api/auth", authRouter)
-app.use("/api/user", userRouter)
-app.use("/api/course", courseRouter)
-app.use("/api/payment", paymentRouter)
-app.use("/api/ai", aiRouter)
-app.use("/api/review", reviewRouter)
+    origin: "http://localhost:5173",
+    credentials: true
+}));
 
+// Routes
+app.use("/api/auth", authRouter);
+app.use("/api/user", userRouter);
+app.use("/api/course", courseRouter);
+app.use("/api/payment", paymentRouter);
+app.use("/api/ai", aiRouter);
+app.use("/api/review", reviewRouter);
 
-app.get("/" , (req,res)=>{
-    res.send("Hello From Server")
-})
+// Test route
+app.get("/", (req, res) => {
+    res.send("Hello From Server");
+});
 
-app.listen(port , ()=>{
-    console.log("Server Started")
-    connectDb()
-})
-
+// Start server
+app.listen(port, () => {
+    console.log(`🚀 Server Started on port ${port}`);
+    connectDb();
+});
