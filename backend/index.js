@@ -25,17 +25,23 @@ const port = process.env.PORT || 5000;
 app.use(express.json());
 app.use(cookieParser());
 app.use(cors({
-    origin: "http://localhost:5173",
-    credentials: true
-}));
+    origin:"https://lms-7cp5.onrender.com",
+    credentials:true
+}))
+app.use("/api/auth", authRouter)
+app.use("/api/user", userRouter)
+app.use("/api/course", courseRouter)
+app.use("/api/payment", paymentRouter)
+app.use("/api/ai", aiRouter)
+app.use("/api/review", reviewRouter)
 
 // Routes
-app.use("/api/auth", authRouter);
-app.use("/api/user", userRouter);
-app.use("/api/course", courseRouter);
-app.use("/api/payment", paymentRouter);
-app.use("/api/ai", aiRouter);
-app.use("/api/review", reviewRouter);
+// app.use("/api/auth", authRouter);
+// app.use("/api/user", userRouter);
+// app.use("/api/course", courseRouter);
+// app.use("/api/payment", paymentRouter);
+// app.use("/api/ai", aiRouter);
+// app.use("/api/review", reviewRouter);
 
 // Test route
 app.get("/", (req, res) => {
